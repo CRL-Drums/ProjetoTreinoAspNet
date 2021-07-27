@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProjetoTreinoAspNet.Data;
+using ProjetoTreinoAspNet.Services;
 
 namespace ProjetoTreinoAspNet
 {
@@ -41,6 +42,7 @@ namespace ProjetoTreinoAspNet
                 builder.MigrationsAssembly("ProjetoTreinoAspNet")));
 
             services.AddScoped<SeedingService>();
+            services.AddScoped<SellerService>();
             //services.AddDbContext<ProjetoTreinoAspNetContext>(options =>
             //        options.UseSqlServer(Configuration.GetConnectionString("ProjetoTreinoAspNetContext")));
         }
