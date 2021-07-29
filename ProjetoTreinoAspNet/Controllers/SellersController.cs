@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjetoTreinoAspNet.Models;
 using ProjetoTreinoAspNet.Services;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,19 @@ namespace ProjetoTreinoAspNet.Controllers
         {
             var list = _sellerservice.FindAll();
             return View(list);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Seller seller)
+        {
+            _sellerservice.Insert(seller);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

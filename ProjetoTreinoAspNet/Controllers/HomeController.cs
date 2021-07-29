@@ -17,14 +17,14 @@ namespace ProjetoTreinoAspNet.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Aplicativo de sistemas de vendas com integração a banco de dados.";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Cláudio Rocha Lima";
 
             return View();
         }
