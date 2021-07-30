@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjetoTreinoAspNet.Data;
 using ProjetoTreinoAspNet.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjetoTreinoAspNet.Services
 {
@@ -29,7 +30,7 @@ namespace ProjetoTreinoAspNet.Services
 
         public Seller FindById(int id)
         {
-            return _context.Seller.FirstOrDefault(obj => obj.Id == id);
+            return _context.Seller.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
         }
 
         public void Remove(int id)
