@@ -4,12 +4,13 @@ using System.Linq;
 using ProjetoTreinoAspNet.Data;
 using ProjetoTreinoAspNet.Models;
 using Microsoft.EntityFrameworkCore;
+using ProjetoTreinoAspNet.Services.Exceptions;
 
 namespace ProjetoTreinoAspNet.Services
 {
     public class SellerService
     {
-//CRL Lindo
+        //CRL Lindo
         private readonly ProjetoTreinoAspNetContext _context;
 
         public SellerService(ProjetoTreinoAspNetContext context)
@@ -38,6 +39,23 @@ namespace ProjetoTreinoAspNet.Services
             var obj = _context.Seller.Find(id);
             _context.Seller.Remove(obj);
             _context.SaveChanges();
+        }
+
+        public void Update(Seller obj)
+        {
+            if (!_context.Seller.Any(x => x.Id == obj.Id))
+            {
+                throw new NotFoundException("Id not found!");
+            }
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            catch (DbConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
         }
     }
 }

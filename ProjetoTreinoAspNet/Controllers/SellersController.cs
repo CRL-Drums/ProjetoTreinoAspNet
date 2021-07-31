@@ -2,6 +2,7 @@
 using ProjetoTreinoAspNet.Models;
 using ProjetoTreinoAspNet.Models.ViewModels;
 using ProjetoTreinoAspNet.Services;
+using ProjetoTreinoAspNet.Services.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,6 +79,48 @@ namespace ProjetoTreinoAspNet.Controllers
                 return NotFound();
             }
             return View(obj);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _sellerservice.FindById(id.Value);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            List<Department> departments = _departmentService.FindAll();
+            SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Seller seller)
+        {
+            if (id != seller.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _sellerservice.Update(seller);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
+            
         }
     }
 }
