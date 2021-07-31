@@ -24,8 +24,12 @@
 
   <ItemGroup>
     <None Remove="Services\" />
+    <None Remove="Views\SalesRecords\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Services\Exceptions\EmptyClass.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\SalesRecords\" />
   </ItemGroup>
 </Project>
