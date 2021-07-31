@@ -69,8 +69,15 @@ namespace ProjetoTreinoAspNet.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            await _sellerservice.RemoveAsync(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _sellerservice.RemoveAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch(IntegrityException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }            
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -137,11 +144,11 @@ namespace ProjetoTreinoAspNet.Controllers
             }            
         }
 
-        public IActionResult Error(string mesage)
+        public IActionResult Error(string message)
         {
             var viewModel = new ErrorViewModel
             {
-                Message = mesage,
+                Message = message,
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             };
             return View(viewModel);
