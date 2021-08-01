@@ -46,6 +46,7 @@ namespace ProjetoTreinoAspNet
             services.AddScoped<SeedingService>();
             services.AddScoped<SellerService>();
             services.AddScoped<DepartmentService>();
+            services.AddScoped<SalesRecordService>();
             //services.AddDbContext<ProjetoTreinoAspNetContext>(options =>
             //        options.UseSqlServer(Configuration.GetConnectionString("ProjetoTreinoAspNetContext")));
         }
